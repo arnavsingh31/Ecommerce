@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+    margin: 9px;
+}
+
+</style>
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'store' %}">Store</a>
+          </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <a href="{% url 'store' %}" class="btn btn-warning">Continue as Guest</a>
+        </div>
+    </div>
+</div>
+</nav>                                                   
+         
+<div class="login-form">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h2 class="text-center">Log in</h2>       
+        <div class="form-group">
+            <input type="text" class="form-control add-margin" placeholder="Username" required="required" name="username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" required="required" name="password">
+        </div>
+        <div class="text-center">
+            <div class="form-group ">
+                <button type="submit" class="btn btn-primary ">Log in</button>
+            </div>
+        </div>
+
+        <div class="clearfix" style="position: relative; top:20px">
+            
+            <a href="#">Forgot Password?</a>
+            <p style="position: relative; left:163px; top: -22px;"><a href="{% url 'register' %}">Create an Account</a></p>
+        </div>        
+        {% for message in messages %}
+            <p class="text-center" style="color: rgb(207, 24, 24);">{{ message }}</p>
+        {% endfor %}
+    </form>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+{% for message in messages %}
+<div class="row" style="background-color: rgb(185, 247, 185); border-radius:5px">
+    <div class="col-lg">
+        {{message}}
+    </div>
+</div>
+{% endfor %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="{{ product.image.url }}" alt="product_image">
+        <div class="box-element">
+            <h3><strong>{{ product.name }}</strong></h3>
+            <hr>
+            <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary update-cart">Add to Cart</button>
+            <a href="#" class="btn btn-outline-secondary">View</a>
+            <h4 style=" float:right">${{ product.price }}</h4>
+        </div>
+    </div>
+    
+    {% endfor %}
+</div>
+{% endblock %}
+    
