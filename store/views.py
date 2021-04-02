@@ -5,11 +5,11 @@ from .models import *
 from django.http import JsonResponse
 from .utils import cookieCart, cartData, guestOrder
 from django.forms import ModelForm
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ProductForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .decorators import unauthenticated_user
-
+from .decorators import unauthenticated_user, staff_only
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -48,10 +48,30 @@ def loginUser(request):
     return render(request, 'store/login.html', context)
 
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     messages.success(request, "You have been successfully logged-out")
     return redirect('store')
+
+
+@staff_only
+def allProducts(request):
+    products = Product.objects.all()
+    context = {'products': products, 'cartItems': 0}
+    return render(request, 'store/products.html', context)
+
+
+@staff_only
+def createProduct(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('products')
+    context = {'form': form, 'cartItems': 0}
+    return render(request, 'store/new_product.html', context)
 
 
 def store(request):

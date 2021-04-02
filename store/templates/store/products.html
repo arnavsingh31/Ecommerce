@@ -1,10 +1,13 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+<a href="{% url 'create-product' %}" class="btn btn-outline-secondary update-cart mt-3">Add new product</a>
 {% for message in messages %}
-<div class="alert alert-success mt-3" role="alert">
-    {{message}}
-  </div>
+<div class="row" style="background-color: rgb(185, 247, 185); border-radius:5px">
+    <div class="col-lg">
+        {{message}}
+    </div>
+</div>
 {% endfor %}
 <div class="row">
     {% for product in products %}
@@ -13,7 +16,7 @@
         <div class="box-element">
             <h3><strong>{{ product.name }}</strong></h3>
             <hr>
-            <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary update-cart">Add to Cart</button>
+            
             <a href="#" class="btn btn-outline-secondary">View</a>
             <h4 style=" float:right">${{ product.price }}</h4>
         </div>
